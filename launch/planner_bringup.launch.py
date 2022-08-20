@@ -25,48 +25,51 @@ import os
 
 def generate_launch_description():
     behavior_config_package = LaunchConfiguration(
-        "behavior_config_package", default="robotx_behavior_tree"
+        "behavior_config_package", default="robotx_bt_planner"
     )
     behavior_config_filepath = LaunchConfiguration(
         "behavior_config_filepath", default="config/go.yaml"
     )
     behavior_update_rate = LaunchConfiguration("behavior_update_rate", default=20.0)
     return LaunchDescription(
-        DeclareLaunchArgument(
-            "behavior_config_package",
-            default_value=behavior_config_package,
-            description="ros package name which behavior config exists",
-        ),
-        DeclareLaunchArgument(
-            "behavior_config_filepath",
-            default_value=behavior_config_filepath,
-            description="config yaml path for robot behavior",
-        ),
-        DeclareLaunchArgument(
-            "behavior_update_rate",
-            default_value=behavior_update_rate,
-            description="update rate of robot behavior",
-        ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [
-                    os.path.join(
-                        get_package_share_directory("hermite_path_planner_bringup"),
-                        "/bringup.launch.py",
-                    )
-                ]
-            )
-        ),
-        Node(
-            package="robotx_bt_planner",
-            executable="robotx_bt_planner_node",
-            name="robotx_bt_planner_node",
-            parameters=[
-                {
-                    "config_package": behavior_config_package,
-                    "config_file": behavior_config_filepath,
-                    "update_rate": behavior_update_rate,
-                }
-            ],
-        ),
+        [
+            DeclareLaunchArgument(
+                "behavior_config_package",
+                default_value=behavior_config_package,
+                description="ros package name which behavior config exists",
+            ),
+            DeclareLaunchArgument(
+                "behavior_config_filepath",
+                default_value=behavior_config_filepath,
+                description="config yaml path for robot behavior",
+            ),
+            DeclareLaunchArgument(
+                "behavior_update_rate",
+                default_value=behavior_update_rate,
+                description="update rate of robot behavior",
+            ),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    [
+                        os.path.join(
+                            get_package_share_directory("hermite_path_planner_bringup"),
+                            "launch",
+                            "bringup.launch.py",
+                        )
+                    ]
+                )
+            ),
+            Node(
+                package="robotx_bt_planner",
+                executable="robotx_bt_planner_node",
+                name="robotx_bt_planner_node",
+                parameters=[
+                    {
+                        "config_package": behavior_config_package,
+                        "config_file": behavior_config_filepath,
+                        "update_rate": behavior_update_rate,
+                    }
+                ],
+            ),
+        ]
     )
