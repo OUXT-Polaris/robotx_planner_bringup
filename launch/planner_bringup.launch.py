@@ -17,6 +17,7 @@ from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
+from launch_ros.actions import Node
 
 
 import os
@@ -55,5 +56,17 @@ def generate_launch_description():
                     )
                 ]
             )
+        ),
+        Node(
+            package="robotx_bt_planner",
+            executable="robotx_bt_planner_node",
+            name="robotx_bt_planner_node",
+            parameters=[
+                {
+                    "config_package": behavior_config_package,
+                    "config_file": behavior_config_filepath,
+                    "update_rate": behavior_update_rate,
+                }
+            ],
         ),
     )
