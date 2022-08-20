@@ -1,0 +1,20 @@
+repositories:
+  quaternion_operation:
+    type: git
+    url: https://github.com/OUXT-Polaris/quaternion_operation.git
+    version: ros2
+  color_names:
+    type: git
+    url: https://github.com/OUXT-Polaris/color_names.git
+  ouxt_common:
+    type: git
+    url: https://github.com/OUXT-Polaris/ouxt_common.git
+    version: master
+  sol_vendor:
+    type: git
+    url: https://github.com/OUXT-Polaris/sol_vendor.git
+    version: main
+  lua_vendor:
+    type: git
+    url: https://github.com/OUXT-Polaris/lua_vendor.git
+    version: main
