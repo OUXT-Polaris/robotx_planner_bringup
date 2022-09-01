@@ -28,7 +28,7 @@ def generate_launch_description():
         "behavior_config_package", default="robotx_bt_planner"
     )
     behavior_config_filepath = LaunchConfiguration(
-        "behavior_config_filepath", default="config/go.yaml"
+        "behavior_config_filepath", default="config/move_to_gate_action.yaml"
     )
     behavior_update_rate = LaunchConfiguration("behavior_update_rate", default=20.0)
     return LaunchDescription(
